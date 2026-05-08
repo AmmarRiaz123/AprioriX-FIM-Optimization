@@ -8,15 +8,16 @@
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
-2. [Completed Work](#completed-work)
-3. [Project Structure](#project-structure)
-4. [Setup & Installation](#setup--installation)
-5. [Implementation Details](#implementation-details)
-6. [Running Benchmarks](#running-benchmarks)
-7. [Results & Findings](#results--findings)
-8. [Report Generation](#report-generation)
-9. [Remaining Tasks](#remaining-tasks)
-10. [How to Extend](#how-to-extend)
+2. [Requirements Compliance Audit](#requirements-compliance-audit)
+3. [Completed Work](#completed-work)
+4. [Project Structure](#project-structure)
+5. [Setup & Installation](#setup--installation)
+6. [Implementation Details](#implementation-details)
+7. [Running Benchmarks](#running-benchmarks)
+8. [Results & Findings](#results--findings)
+9. [Report Generation](#report-generation)
+10. [Remaining Tasks](#remaining-tasks)
+11. [How to Extend](#how-to-extend)
 
 ---
 
@@ -36,6 +37,39 @@ This project implements and compares the classical **Apriori algorithm** for Fre
 - **Language:** Python 3.10
 - **Key Libraries:** `psutil` (system metrics), `matplotlib` (visualization), `pandas` (data handling)
 - **Environment:** Virtual environment (`venv`)
+
+---
+
+## Requirements Compliance Audit
+
+This section records the project status against the semester brief in `ProjectDescDoc.md`. It is the clearest handover summary for the next contributors.
+
+### What Is Implemented
+- **Classical Apriori baseline:** implemented in `src/apriori.py`
+- **An optimization strategy:** vertical TID-list representation implemented in `src/optimized_apriori.py`
+- **Benchmark harness:** implemented in `src/evaluate.py`
+- **Dataset generation utility:** implemented in `scripts/generate_datasets.py`
+- **IEEE report scaffold:** present in `report/`
+
+### What Is Partially Implemented
+- **Experimental metrics:** execution time and memory are measured, but not yet averaged across three runs, and not all required counts are recorded
+- **Dataset coverage:** benchmark files exist, but they are synthetic rather than the original real-world FIMI benchmark files
+- **Report content:** the IEEE template exists, but the full paper text, results, discussion, references, and contributions section are not completed
+
+### What Is Still Missing
+- **A contemporary algorithm published in 2022 or later**
+   - The current optimized implementation is still based on Apriori with a vertical format idea, not a separate 2022+ algorithm
+- **Real benchmark datasets**
+   - The project currently relies on generated datasets because the public downloads that were attempted returned errors
+- **Full metric coverage**
+   - Missing or incomplete: frequent itemset counts, candidate counts for all relevant runs, scalability curves, and three-run averages
+- **Final IEEE report**
+   - Missing abstract, literature review with at least five papers, the final results section, discussion, conclusion, and IEEE-style references
+- **Author contributions section**
+   - The report still needs a clear team responsibility breakdown
+
+### Important Handover Note
+If the goal is strict compliance with the course brief, the project should be treated as **incomplete** until the following are added: a true 2022+ comparison algorithm, real datasets, full averaged experiments, and the finished IEEE report.
 
 ---
 
@@ -366,6 +400,8 @@ plt.savefig('../results/benchmark_comparison.png')
 - ✅ Algorithm descriptions drafted
 - ✅ Complexity analysis prepared
 - ⏳ **Pending:** Fill empirical results section with actual benchmark data
+- ⏳ **Pending:** Add the required 2022+ algorithm comparison and citations
+- ⏳ **Pending:** Write the full IEEE paper text and author contributions section
 
 ### How to Complete the Report
 
@@ -419,17 +455,23 @@ plt.savefig('../results/benchmark_comparison.png')
      - Kaggle market basket datasets
    - Regenerate benchmarks with real data
 
-2. **Debug Apriori Return Value**
+2. **Add a true 2022+ algorithm**
+   - Select a recent frequent itemset mining or related algorithm
+   - Implement it as a separate baseline for comparison
+   - Cite the original paper in the report
+
+3. **Debug Apriori Return Value**
    - `apriori()` returns incorrect structure for evaluate.py
    - Fix: `apriori()` should return `(frequent_itemsets, total_candidates_generated)`
    - Currently returns integer instead of set for candidates count
 
-3. **Complete Experimental Results**
+4. **Complete Experimental Results**
    - Run all three support levels (10%, 20%, 40%)
    - Test all three datasets (Chess, Connect, Accidents)
    - Generate comparison graphs (Time, Memory, Speedup)
+   - Average each experiment over at least three runs
 
-4. **Write Final Report**
+5. **Write Final Report**
    - Fill results section with actual data
    - Add discussion of findings
    - Write conclusions
@@ -590,7 +632,9 @@ pip install -r requirements.txt --no-cache-dir
   - Benchmarking: ✅
   - Report template: ✅
 
+**Current Compliance Status:** partial implementation only; not yet ready for final submission against the course brief
+
 ---
 
 **Last Updated:** May 8, 2026  
-**Status:** Implementation complete, pending empirical evaluation & report finalization
+**Status:** Core code scaffold complete, but course requirements are still incomplete
