@@ -192,8 +192,8 @@ Academic use for CS-378 course project
 
 ## 👥 Team
 
-- **Original Developer:** [Your Name]
-- **Contributors:** [Your Partners' Names]
+- **Original Developer:** Muhammad Ammar Riaz
+- **Contributors:** Hashir Awaiz , Hamza Elahi , Taaha Shabbir
 - **Course:** CS-378: Design and Analysis of Algorithms
 - **Date:** May 2026
 
