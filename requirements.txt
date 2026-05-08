@@ -1,0 +1,17 @@
+# AprioriX-FIM-Optimization Requirements
+# Install with: pip install -r requirements.txt
+
+# Core dependencies
+psutil>=5.9.0       # System metrics (CPU, memory profiling)
+matplotlib>=3.5.0   # Visualization and graph generation
+pandas>=1.3.0       # Data manipulation and analysis
+
+# Optional but recommended
+numpy>=1.20.0       # Numerical operations (used by matplotlib)
+jupyter>=1.0.0      # Interactive notebooks for analysis
+notebook>=6.0.0     # Jupyter notebook interface
+
+# Development tools (optional)
+pytest>=6.0.0       # Unit testing
+pylint>=2.10.0      # Code quality analysis
+black>=21.0.0       # Code formatting
