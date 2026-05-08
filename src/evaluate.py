@@ -9,7 +9,7 @@ def get_memory_usage():
     return process.memory_info().rss / (1024 * 1024) # MB
 
 def benchmark_algorithms(dataset_path, min_sup_ratio):
-    print(f"Benchmarking dataset: {dataset_path} with min_sup={min_sup_ratio}")
+    print(f"Benchmarking dataset: {dataset_path} with min_sup={min_sup_ratio:.2f}")
     transactions = load_transactions(dataset_path)
     num_transactions = len(transactions)
     min_sup_count = int(min_sup_ratio * num_transactions)
@@ -18,32 +18,34 @@ def benchmark_algorithms(dataset_path, min_sup_ratio):
     print("-- Running Baseline Apriori --")
     start_v = get_memory_usage()
     start_t = time.time()
-    fi_apriori, candidates = apriori(transactions, min_sup_count)
-    end_t = time.time()
-    end_v = get_memory_usage()
-    
-    apriori_time = end_t - start_t
-    apriori_mem = end_v - start_v
-    print(f"Time: {apriori_time:.4f}s | Memory: {apriori_mem:.2f} MB | Candidates: {candidates}")
+    try:
+        fi_apriori, candidates = apriori(transactions, min_sup_count)
+        apriori_time = time.time() - start_t
+        apriori_mem = get_memory_usage() - start_v
+        print(f"Time: {apriori_time:.4f}s | Memory: {apriori_mem:.2f} MB | Candidate Count: {len(candidates) if candidates else 0}")
+    except Exception as e:
+        apriori_time = float('inf')
+        print(f"Error: {e}")
     
     # Measure Optimized Apriori
     print("-- Running Optimized Apriori (Vertical Format) --")
     start_v = get_memory_usage()
     start_t = time.time()
-    fi_opt = vertical_apriori(dataset_path, min_sup_count)
-    end_t = time.time()
-    end_v = get_memory_usage()
-    
-    opt_time = end_t - start_t
-    opt_mem = end_v - start_v
-    print(f"Time: {opt_time:.4f}s | Memory: {opt_mem:.2f} MB")
-    
-    speedup = apriori_time / opt_time if opt_time > 0 else float('inf')
-    print(f"Speedup achieved: {speedup:.2f}x\n")
+    try:
+        fi_opt = vertical_apriori(dataset_path, min_sup_count)
+        opt_time = time.time() - start_t
+        opt_mem = get_memory_usage() - start_v
+        print(f"Time: {opt_time:.4f}s | Memory: {opt_mem:.2f} MB")
+    except Exception as e:
+        opt_time = float('inf')
+        print(f"Error: {e}")
+        
+    speedup = apriori_time / opt_time if opt_time > 0 and opt_time != float('inf') else float('inf')
+    if speedup != float('inf'):
+        print(f"Speedup achieved: {speedup:.2f}x\n")
+    else:
+        print("Speedup achieved: N/A\n")
 
 if __name__ == "__main__":
-    # Ensure psutil is installed (pip install psutil)
-    # Download datasets "chess.dat", "connect.dat", "accidents.dat" from FIMI repo and place them in ../datasets/
-    # Sample run (uncomment when dataset is available):
-    # benchmark_algorithms("../datasets/chess.dat", min_sup_ratio=0.8)
-    pass
+    for ratio in [0.4, 0.2, 0.1]:
+        benchmark_algorithms("../datasets/chess.dat", min_sup_ratio=ratio)
