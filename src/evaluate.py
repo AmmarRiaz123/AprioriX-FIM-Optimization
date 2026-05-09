@@ -116,13 +116,14 @@ if __name__ == "__main__":
     datasets_dir = os.path.join(base_dir, "datasets")
     results_dir = os.path.join(base_dir, "results")
     os.makedirs(results_dir, exist_ok=True)
+    results_file = os.path.join(results_dir, "benchmark_results.json")
     
     # Benchmark datasets: Real FIMI benchmarks
     datasets = [
         (os.path.join(datasets_dir, "chess.dat"), "Chess (Real FIMI Benchmark)"),
         (os.path.join(datasets_dir, "connect.dat"), "Connect (Real FIMI Benchmark)"),
         (os.path.join(datasets_dir, "accidents.dat"), "Accidents (Real FIMI Benchmark)"),
-        (os.path.join(datasets_dir, "online_retail_itemids.dat"), "Online Retail (Real-World) ⭐")
+        (os.path.join(datasets_dir, "online_retail_itemids.dat"), "Online Retail (Real-World)")
     ]
     
     support_ratios = [0.4, 0.2, 0.1]
@@ -150,5 +151,5 @@ if __name__ == "__main__":
                 json.dump(all_results, f, indent=4)
         
     print(f"\n{'='*70}")
-    print(f"✅ BENCHMARK COMPLETE. Results saved to: {results_file}")
+    print(f"BENCHMARK COMPLETE. Results saved to: {results_file}")
     print("="*70)
