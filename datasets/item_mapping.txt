@@ -1,0 +1,5 @@
+Online Retail Dataset - Item ID to Product Mapping
+================================================================================
+
+Total Items: 4056
+
