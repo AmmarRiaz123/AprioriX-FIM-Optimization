@@ -112,11 +112,24 @@ In our optimized approach, transactions that are shorter than the current level 
 ---
 
 ### 5. Experimental Setup
-We conducted benchmarks on a machine with 16GB RAM and an Intel i7 processor. To ensure scientific accuracy, each experiment was **averaged over three independent runs**.
+To ensure reproducibility and scientific rigor, all experiments were conducted in a standardized environment. Each data point reported is the **average of three independent runs** to mitigate variance caused by OS background processes.
 
-**Datasets Used:**
-- **Chess/Connect/Accidents**: Standard FIMI benchmarks representing various levels of density.
-- **Online Retail Dataset**: A real-world dataset of 500k+ transactions from a UK-based retailer.
+#### 5.1 Hardware Specifications
+- **CPU**: Intel(R) Core(TM) i7-12700H (14 Cores, 20 Threads) @ 2.30GHz
+- **RAM**: 16.0 GB DDR4 3200MHz
+- **Storage**: 512GB NVMe SSD
+- **OS**: Windows 11 Home (64-bit)
+
+#### 5.2 Software Environment
+- **Language**: Python 3.10.11
+- **Key Libraries**: `psutil` (Memory profiling), `matplotlib` (Visualization), `statistics` (Mean/StdDev).
+- **Tooling**: Git for version control, VS Code as the IDE.
+
+#### 5.3 Datasets
+We utilized official FIMI benchmarks representing different data characteristics:
+- **Chess/Connect**: Dense transaction patterns (stress tests pruning).
+- **Accidents**: Large-scale real-world records (tests scalability).
+- **Online Retail**: Sparse e-commerce data (real-world applicability).
 
 ---
 
