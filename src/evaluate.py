@@ -92,21 +92,21 @@ def benchmark_algorithms(dataset_path, min_sup_ratio, num_runs=3):
     print("SPEEDUP ANALYSIS")
     print(f"{'='*70}")
     
-    ap_time = results_summary['apriori']['avg_time'] if results_summary['apriori'] else 0
+    ap_time = results_summary['apriori']['avg_time'] if results_summary['apriori'] and results_summary['apriori']['avg_time'] > 0 else 0
     
     if results_summary['optimized'] and results_summary['optimized']['avg_time'] > 0:
-        speedup_opt = ap_time / results_summary['optimized']['avg_time']
+        speedup_opt = ap_time / results_summary['optimized']['avg_time'] if ap_time > 0 else 0
         print(f"Optimized Apriori speedup: {speedup_opt:.2f}x")
     
     if results_summary['huim'] and results_summary['huim']['avg_time'] > 0:
-        speedup_huim = ap_time / results_summary['huim']['avg_time']
+        speedup_huim = ap_time / results_summary['huim']['avg_time'] if ap_time > 0 else 0
         print(f"HUIM (2022+) speedup: {speedup_huim:.2f}x")
     
     return results_summary
 
 if __name__ == "__main__":
     print("\n" + "="*70)
-    print("BLOCKER 2 & 3 COMPLETION: REAL-WORLD DATASET BENCHMARKING")
+    print("FINAL PROJECT EVALUATION: REAL-WORLD DATASET BENCHMARKING")
     print("="*70)
     print("Averaging results over 3 runs for scientific accuracy.")
     print("="*70)
@@ -118,18 +118,37 @@ if __name__ == "__main__":
     os.makedirs(results_dir, exist_ok=True)
     results_file = os.path.join(results_dir, "benchmark_results.json")
     
-    # Benchmark datasets: Real FIMI benchmarks
-    datasets = [
-        (os.path.join(datasets_dir, "chess.dat"), "Chess (Real FIMI Benchmark)"),
-        (os.path.join(datasets_dir, "connect.dat"), "Connect (Real FIMI Benchmark)"),
-        (os.path.join(datasets_dir, "accidents.dat"), "Accidents (Real FIMI Benchmark)"),
-        (os.path.join(datasets_dir, "online_retail_itemids.dat"), "Online Retail (Real-World)")
+    # Benchmark datasets with custom support ratios to ensure completion
+    # Dense datasets need higher support, sparse ones need lower.
+    test_suite = [
+        {
+            "path": os.path.join(datasets_dir, "chess.dat"),
+            "name": "Chess (Real FIMI Benchmark)",
+            "ratios": [0.9, 0.8, 0.7]
+        },
+        {
+            "path": os.path.join(datasets_dir, "connect.dat"),
+            "name": "Connect (Real FIMI Benchmark)",
+            "ratios": [0.95, 0.9, 0.85]
+        },
+        {
+            "path": os.path.join(datasets_dir, "accidents.dat"),
+            "name": "Accidents (Real FIMI Benchmark)",
+            "ratios": [0.8, 0.6, 0.4]
+        },
+        {
+            "path": os.path.join(datasets_dir, "online_retail_itemids.dat"),
+            "name": "Online Retail (Real-World)",
+            "ratios": [0.1, 0.05, 0.02]
+        }
     ]
     
-    support_ratios = [0.4, 0.2, 0.1]
     all_results = []
     
-    for dataset_path, dataset_name in datasets:
+    for dataset in test_suite:
+        dataset_path = dataset["path"]
+        dataset_name = dataset["name"]
+        
         print(f"\n\n{'='*70}")
         print(f"DATASET: {dataset_name}")
         print(f"{'='*70}")
@@ -138,7 +157,7 @@ if __name__ == "__main__":
             print(f"Skipping {dataset_name} - File not found: {dataset_path}")
             continue
         
-        for ratio in support_ratios:
+        for ratio in dataset["ratios"]:
             res = benchmark_algorithms(dataset_path, min_sup_ratio=ratio, num_runs=3)
             all_results.append({
                 'dataset': dataset_name,
