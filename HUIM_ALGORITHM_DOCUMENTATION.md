@@ -27,32 +27,27 @@ Recent papers (2022+) including works on "Efficient High-Utility Pattern Growth"
 | **Search Space** | Reduces by frequency | Reduces by utility bounds |
 | **Output** | Frequent itemsets | High-utility itemsets |
 
-### Algorithm Complexity
+### **Time Complexity:** $O(|L|^2 \cdot |T|/w)$
+- Optimized using **Vertical TID-list intersections**.
+- Eliminates repeated full database scans.
+- Significantly faster on sparse utility distributions.
 
-**Time Complexity:** O(|T| × |HUI| × |candidate generation|)
-- |T| = number of transactions
-- |HUI| = number of high-utility itemsets
-- Typically more efficient than Apriori on sparse utility distributions
-
-**Space Complexity:** O(sum of all itemset utilities)
-- Similar to Apriori, but with utility tracking overhead
+**Space Complexity:** $O(|I| \cdot |T|)$
+- Requires memory to store TID-lists for each item.
+- Proportional to the number of transactions and unique items.
 
 ### Algorithm Steps
 
 ```
-1. Load transactions with utility values
-2. Calculate Transaction Utilities (TU): sum of all item utilities per transaction
-3. Calculate Item Utilities (IU): sum of item utilities across all transactions
-4. Generate 1-itemsets: items where IU >= min_utility_threshold
-5. For k = 2 to n:
-   a. Generate candidates from (k-1)-itemsets
-   b. For each candidate C in database:
-      - Calculate utility as sum of (product of utilities in matching transactions)
-      - If utility(C) >= min_utility_threshold:
-        * Add C to high-utility itemsets
-        * Use promising branch pruning to eliminate non-viable candidates
-   c. If no new itemsets found, STOP
-6. Return all high-utility itemsets
+1. Load transactions and build **Vertical TID-lists**.
+2. Calculate total utility for each item.
+3. Filter 1-itemsets meeting the utility threshold.
+4. For k = 2 to n:
+   a. Join $(k-1)$-itemsets sharing a common prefix.
+   b. **Intersect TID-lists** to find transactions containing the candidate.
+   c. If intersection is not empty, calculate utility sum for matching transactions.
+   d. If utility >= threshold, keep as High-Utility Itemset.
+5. Return all results.
 ```
 
 ### Key Innovation: Promising Branch Pruning
