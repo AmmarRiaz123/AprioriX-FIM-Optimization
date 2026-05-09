@@ -76,5 +76,5 @@ AprioriX-FIM-Optimization/
 - **Taaha Shabbir**
 
 **Course:** CS-378: Design and Analysis of Algorithms  
-**University:** [Insert University Name]  
+**University:** GIKI  
 **Date:** May 2026
