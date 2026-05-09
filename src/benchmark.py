@@ -2,7 +2,7 @@ import time
 import psutil
 import os
 from apriori import apriori
-from optimized_apriori import optimized_apriori
+from optimized_apriori import vertical_apriori
 
 def load_dataset(file_path):
     transactions = []
@@ -32,4 +32,4 @@ if __name__ == "__main__":
     # Example usage:
     # transactions = load_dataset('../datasets/chess.dat')
     # Use standard support threshold, e.g., 50% = 0.5 * len(transactions)
-    # results = run_benchmark(optimized_apriori, transactions, min_sup=1500)
+    # results = run_benchmark(vertical_apriori, transactions, min_sup=1500)

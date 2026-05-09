@@ -24,6 +24,8 @@ def vertical_apriori(filepath, min_sup_count):
     current_itemsets = f1
     k = 2
     
+    total_candidates_generated = 0
+    
     while current_itemsets:
         next_itemsets = {}
         itemset_list = list(current_itemsets.keys())
@@ -34,10 +36,13 @@ def vertical_apriori(filepath, min_sup_count):
                 itemset2 = itemset_list[j]
                 
                 # Join condition (share first k-2 items)
-                l1 = list(itemset1)[:-1]
-                l2 = list(itemset2)[:-1]
+                # MUST SORT to ensure consistent joining
+                l1 = sorted(list(itemset1))[:-1]
+                l2 = sorted(list(itemset2))[:-1]
+                
                 if l1 == l2:
                     candidate = itemset1.union(itemset2)
+                    total_candidates_generated += 1
                     
                     # Intersect TID lists (The core optimization: no full DB scan)
                     candidate_tids = current_itemsets[itemset1].intersection(current_itemsets[itemset2])
@@ -50,4 +55,4 @@ def vertical_apriori(filepath, min_sup_count):
         current_itemsets = next_itemsets
         k += 1
         
-    return frequent_itemsets
+    return frequent_itemsets, total_candidates_generated

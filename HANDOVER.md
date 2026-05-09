@@ -29,7 +29,7 @@ This project implements and compares the classical **Apriori algorithm** for Fre
 - ✅ Implement classical Apriori algorithm (baseline)
 - ✅ Implement optimized Apriori using vertical data format
 - ✅ Conduct comprehensive benchmarking (execution time & memory usage)
-- ✅ Generate synthetic datasets for testing
+- ✅ Integrate REAL FIMI benchmark datasets (Chess, Connect, Accidents)
 - ✅ Create IEEE-formatted research report template
 - ⏳ Finalize empirical findings and complete written report
 
@@ -59,8 +59,9 @@ This section records the project status against the semester brief in `ProjectDe
 ### What Is Still Missing
 - **A contemporary algorithm published in 2022 or later**
    - The current optimized implementation is still based on Apriori with a vertical format idea, not a separate 2022+ algorithm
-- **Real benchmark datasets**
-   - The project currently relies on generated datasets because the public downloads that were attempted returned errors
+- **Real benchmark datasets integrated**
+   - Successfully replaced synthetic data with real FIMI benchmarks (Chess, Connect, Accidents)
+   - Integrated Online Retail real-world dataset
 - **Full metric coverage**
    - Missing or incomplete: frequent itemset counts, candidate counts for all relevant runs, scalability curves, and three-run averages
 - **Final IEEE report**
