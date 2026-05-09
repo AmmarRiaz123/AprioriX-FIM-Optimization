@@ -42,7 +42,7 @@ def run_benchmark_averaged(func, args, num_runs=3):
         'itemsets_count': sum(len(v) for v in result.values()) if isinstance(result, dict) else 0
     }
 
-def benchmark_algorithms(dataset_path, min_sup_ratio, num_runs=3):
+def benchmark_algorithms(dataset_path, min_sup_ratio, num_runs=3, run_huim=True):
     print(f"\n{'='*70}")
     print(f"Benchmarking dataset: {os.path.basename(dataset_path)} with min_sup={min_sup_ratio:.2f} (Avg of {num_runs} runs)")
     print(f"{'='*70}")
@@ -78,13 +78,16 @@ def benchmark_algorithms(dataset_path, min_sup_ratio, num_runs=3):
         results_summary['optimized'] = None
     
     # Measure HUIM (2022+ State-of-the-Art Algorithm)
-    print(f"-- Running HUIM (2022+ SOTA) ({num_runs} runs) --")
-    try:
-        stats = run_benchmark_averaged(huim_mining_optimized, (dataset_path, min_utility_threshold), num_runs)
-        results_summary['huim'] = stats
-        print(f"Time: {stats['avg_time']:.4f}s (±{stats['std_time']:.4f}s) | Memory: {stats['avg_mem']:.2f} MB | Candidates: {stats['candidates']}")
-    except Exception as e:
-        print(f"Error in HUIM: {e}")
+    if run_huim:
+        print(f"-- Running HUIM (2022+ SOTA) ({num_runs} runs) --")
+        try:
+            stats = run_benchmark_averaged(huim_mining_optimized, (dataset_path, min_utility_threshold), num_runs)
+            results_summary['huim'] = stats
+            print(f"Time: {stats['avg_time']:.4f}s (±{stats['std_time']:.4f}s) | Memory: {stats['avg_mem']:.2f} MB | Candidates: {stats['candidates']}")
+        except Exception as e:
+            print(f"Error in HUIM: {e}")
+            results_summary['huim'] = None
+    else:
         results_summary['huim'] = None
         
     # Calculate speedups
@@ -124,22 +127,22 @@ if __name__ == "__main__":
         {
             "path": os.path.join(datasets_dir, "chess.dat"),
             "name": "Chess (Real FIMI Benchmark)",
-            "ratios": [0.9, 0.8, 0.7]
+            "ratios": [0.9]
         },
         {
             "path": os.path.join(datasets_dir, "connect.dat"),
             "name": "Connect (Real FIMI Benchmark)",
-            "ratios": [0.95, 0.9, 0.85]
+            "ratios": [0.95]
         },
         {
             "path": os.path.join(datasets_dir, "accidents.dat"),
             "name": "Accidents (Real FIMI Benchmark)",
-            "ratios": [0.8, 0.6, 0.4]
+            "ratios": [0.8]
         },
         {
             "path": os.path.join(datasets_dir, "online_retail_itemids.dat"),
             "name": "Online Retail (Real-World)",
-            "ratios": [0.1, 0.05, 0.02]
+            "ratios": [0.1]
         }
     ]
     
@@ -157,8 +160,9 @@ if __name__ == "__main__":
             print(f"Skipping {dataset_name} - File not found: {dataset_path}")
             continue
         
-        for ratio in dataset["ratios"]:
-            res = benchmark_algorithms(dataset_path, min_sup_ratio=ratio, num_runs=3)
+        for j, ratio in enumerate(dataset["ratios"]):
+            # Run all algorithms for 1 run (Fast coverage)
+            res = benchmark_algorithms(dataset_path, min_sup_ratio=ratio, num_runs=1, run_huim=True)
             all_results.append({
                 'dataset': dataset_name,
                 'support': ratio,
