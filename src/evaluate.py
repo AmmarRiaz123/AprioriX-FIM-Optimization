@@ -127,22 +127,22 @@ if __name__ == "__main__":
         {
             "path": os.path.join(datasets_dir, "chess.dat"),
             "name": "Chess (Real FIMI Benchmark)",
-            "ratios": [0.9]
+            "ratios": [0.9, 0.85, 0.8]
         },
         {
             "path": os.path.join(datasets_dir, "connect.dat"),
             "name": "Connect (Real FIMI Benchmark)",
-            "ratios": [0.95]
+            "ratios": [0.97, 0.95, 0.93]
         },
         {
             "path": os.path.join(datasets_dir, "accidents.dat"),
             "name": "Accidents (Real FIMI Benchmark)",
-            "ratios": [0.8]
+            "ratios": [0.9, 0.85, 0.8]
         },
         {
             "path": os.path.join(datasets_dir, "online_retail_itemids.dat"),
             "name": "Online Retail (Real-World)",
-            "ratios": [0.1]
+            "ratios": [0.1, 0.05, 0.02]
         }
     ]
     
@@ -161,8 +161,11 @@ if __name__ == "__main__":
             continue
         
         for j, ratio in enumerate(dataset["ratios"]):
-            # Run all algorithms for 1 run (Fast coverage)
-            res = benchmark_algorithms(dataset_path, min_sup_ratio=ratio, num_runs=1, run_huim=True)
+            # Run all algorithms for 3 runs (Scientific accuracy as required)
+            # Only run HUIM at highest support threshold per dataset (j==0)
+            # to avoid exponential runtime at lower thresholds
+            run_huim_flag = (j == 0)
+            res = benchmark_algorithms(dataset_path, min_sup_ratio=ratio, num_runs=3, run_huim=run_huim_flag)
             all_results.append({
                 'dataset': dataset_name,
                 'support': ratio,

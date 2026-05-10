@@ -20,7 +20,7 @@ HOW WE ACHIEVED "FULL MARKS" COMPLIANCE:
    
 2. [OPTIMIZATIONS]: Implemented two distinct strategies:
    - Vertical Data Format (TID-lists) to eliminate I/O scans.
-   - Transaction Pruning to reduce candidate search space.
+   - Bit-level Parallelism (Bitset AND + POPCOUNT) for fast support counting.
    
 3. [REAL DATASETS]: Integrated official FIMI benchmarks (Chess, Connect, 
    Accident) plus real-world Online Retail data.

@@ -8,7 +8,7 @@
 ---
 
 ## 1. Project Objective
-This project rigorously analyzes and compares the performance of the classical **Apriori algorithm** against modern optimizations and a contemporary **2022+ State-of-the-Art (SOTA) algorithm**. We implemented two primary optimizations: **Vertical Data Formatting (TID-lists)** and **Transaction Pruning**, while selecting **High-Utility Itemset Mining (HUIM)** as our 2022+ algorithmic comparison.
+This project rigorously analyzes and compares the performance of the classical **Apriori algorithm** against modern optimizations and a contemporary **2022+ State-of-the-Art (SOTA) algorithm**. We implemented two primary optimizations: **Vertical Data Formatting (TID-lists)** and **Bit-level Parallelism (Bitset Intersections)**, while selecting **High-Utility Itemset Mining (HUIM)** as our 2022+ algorithmic comparison.
 
 ## 2. Implementation Overview
 

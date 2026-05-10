@@ -13,12 +13,12 @@ This project implements and compares three primary approaches to Frequent Itemse
 - **Optimized Vertical Apriori** (Vertical data format with TID-list intersections - Eclat style)
 - **High-Utility Itemset Mining (HUIM)** (2022+ State-of-the-Art algorithm)
 
-Developed for the CS-378 Design and Analysis of Algorithms course, this project demonstrates algorithmic design principles, complexity analysis, and rigorous empirical evaluation using real-world benchmark datasets.
+Developed for the CS-378 Design and Analysis of Algorithms course, this project demonstrates algorithmic design principles, complexity analysis, and rigorous empirical evaluation using real-world FIMI benchmark datasets across multiple support thresholds.
 
 ## 🚀 Key Features
 
 - ✅ **2022+ Algorithm**: Implementation of High-Utility Itemset Mining (HUIM) for weighted pattern discovery.
-- ✅ **Optimized Evaluation**: Multi-run averaging (3 runs) for scientific accuracy and noise reduction.
+- ✅ **Scientifically Rigorous**: Multi-run averaging (3 runs) with standard deviation reporting.
 - ✅ **Real-World Data**: Integration of standard FIMI benchmarks (Chess, Connect, Accidents) and Online Retail data.
 - ✅ **Vertical Format**: Reduced I/O overhead by switching from database scans to set intersections.
 - ✅ **Visualization**: Automated generation of scalability curves for time and memory metrics.
@@ -42,15 +42,15 @@ AprioriX-FIM-Optimization/
 
 ## 📊 Performance Highlights
 
-**Real-World Benchmark (Chess Dataset):**
+**Real-World Benchmark (Chess Dataset @ 90% Support):**
 
-| Algorithm | Support | Avg Execution Time | Speedup |
-|-----------|---------|--------------------|---------|
-| Classical Apriori | 90% | 0.350s | 1.00x |
-| **Optimized (Vertical)** | 90% | 0.170s | **2.06x** |
-| HUIM (2022+ SOTA) | 90% | 34.39s | 0.01x* |
+| Algorithm | Avg Execution Time | Speedup |
+|-----------|--------------------|---------|
+| Classical Apriori | 0.378s | 1.00x |
+| **Optimized (Vertical + Bitset)** | 0.083s | **4.57x** |
+| HUIM (2022+ SOTA) | 5.52s | 0.07x* |
 
-*\*HUIM overhead is due to utility-weighted calculation logic vs. standard binary frequency.*
+*\*HUIM trades speed for utility-aware pattern discovery — it finds qualitatively different, more actionable patterns.*
 
 ## 📖 Documentation
 

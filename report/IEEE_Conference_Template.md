@@ -1,46 +1,28 @@
-# Comparison of Apriori Algorithm for Frequent Itemset Mining with State-of-the-Art Algorithms and Optimization Strategies
+# IEEE Conference Format Reference
 
-## 1. Abstract
-Frequent Itemset Mining (FIM) remains a critical subroutine in data analytics. In this project, we re-evaluate the classical Apriori algorithm against recent advancements (2022+). We propose and implement vertical data representation and transaction pruning to address Apriori's primary bottleneck: I/O cost from multiple database scans. Our experiments on standard dense datasets (Chess, Connect, Accident) reveal that vertical format intersection achieves substantial speedups over the baseline, paving the way for scalable large-scale correlation discovery.
+This file documents the IEEE double-column conference format requirements for the final submission.
 
-## 2. Introduction
-Introduce the context of Frequent Itemset Mining (FIM) and Association Rule Mining. Discuss the challenges with dense datasets where item combinations grow exponentially. Define the contributions of your project.
+**The complete report is in `report/main.md`**, which contains all required sections:
+- Abstract (150-250 words)
+- Introduction
+- Literature Review (5+ papers critically evaluated)
+- Algorithm Description & Analysis (with pseudocode and complexity)
+- Proposed Optimization Strategies
+- Experimental Setup & Results
+- Discussion
+- Conclusion
+- References (9 IEEE-style citations)
+- Author Contributions
 
-## 3. Literature Review
-1. Agrawal & Srikant (1994) - Original Apriori formulation.
-2. Zaki (2000) - Eclat and vertical data formats (foundation of our optimization).
-3. Han et al. (2000) - FP-Growth (tree-based structure).
-4. [Select a 2022+ Paper] e.g., "A modern GPU-based matrix FIM approach".
-5. [Select another related paper].
+## Formatting Notes for PDF Conversion
 
-## 4. Algorithms: Description and Analysis
-### 4.1 Classical Apriori
-Detail the BFS traversal, Candidate Generation (join step), and Pruning (anti-monotone property).
-- Time Complexity
-- Space Complexity
+The final PDF submission should be formatted using the official IEEE Conference template:
+- **LaTeX**: https://www.ieee.org/conferences/publishing/templates.html
+- **Overleaf**: https://www.overleaf.com/latex/templates/ieee-conference-template/grfzhhncsfqn
+- **Word**: IEEE Conference Paper template from the IEEE Author Center
 
-### 4.2 State-of-the-Art (e.g., Matrix-based FIM or advanced FP-Tree)
-Describe the core logic, improvements over Apriori, and how it handles candidate generation differently (or avoids it altogether).
-
-## 5. Proposed Optimization Strategies
-### 5.1 Vertical Data Formatting (TID-Lists)
-Explain how converting horizontal transactions to Vertical form allows frequency counting using simple set intersections rather than database scans.
-### 5.2 Transaction Reduction 
-Explain discarding sub-minimum-length transactions to save search space.
-
-## 6. Experimental Setup and Results
-- **Hardware:** Intel Core xx / M-series, x GB RAM
-- **Software:** Python 3.10
-- **Datasets:** Connect, Chess, Accident from FIMI.
-
-*Include Tables & Graphs showing Runtime vs Support and Memory vs Support.*
-
-## 7. Discussion
-Interpret why the optimized variant is faster. Discuss density, correlation in the benchmark sets, and any memory trade-offs when storing massive TID lists in memory.
-
-## 8. Conclusion
-Wrap up the research. Note limitations (e.g., memory bottlenecks on extremely massive datasets requiring distributed mapping) and outline future improvements.
-
-## 9. References
-- [1] R. Agrawal and R. Srikant, "Fast algorithms for mining association rules," Proc. 20th int. conf. very large data bases, 1994.
-- [2] ...
+Key formatting requirements:
+- Double-column layout
+- 10pt Times New Roman font
+- 1-inch margins
+- IEEE citation style [1], [2], etc.
