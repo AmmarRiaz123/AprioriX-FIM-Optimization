@@ -58,6 +58,7 @@ AprioriX-FIM-Optimization/
 - **[HANDOVER.md](HANDOVER.md)** - Implementation details and architecture.
 - **[HUIM_ALGORITHM_DOCUMENTATION.md](HUIM_ALGORITHM_DOCUMENTATION.md)** - Technical details of the 2022+ SOTA algorithm.
 - **[report/main.md](report/main.md)** - The final IEEE Conference Report.
+- **[report/technical-deep-dive/INDEX.md](report/technical-deep-dive/INDEX.md)** - Section-by-section code walkthroughs (algorithms, evaluation, data pipeline, limitations).
 
 ## 🛠️ Installation & Usage
 
@@ -72,8 +73,9 @@ AprioriX-FIM-Optimization/
 
 - **Muhammad Ammar Riaz**
 - **Hashir Awaiz**
-- **Hamza Elahi**
 - **Taaha Shabbir**
+- **Hamza Elahi**
+
 
 **Course:** CS-378: Design and Analysis of Algorithms  
 **University:** GIKI  
